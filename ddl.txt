@@ -1,0 +1,204 @@
+
+	//if (world_rank == 0)
+	//{
+	//	printf("This is the unsorted array: ");
+	//	for (c = 0; c < TOTAL_SIZE; c++)
+	//	{
+	//		original_array[c] = rand() % TOTAL_SIZE;
+	//		printf("%d ", original_array[c]);
+	//	}
+	//	printf("\n");
+	//	printf("\n");
+	//	//initm();
+	//	int  k1 = 0, k2 = 0;//初始时小于和大于中位数元素数目
+	//	
+	//	int mid1 = TOTAL_SIZE / 2;
+	//	for (int i = 0; i < TOTAL_SIZE; i++) {
+	//		if (original_array[i] < mid1)
+	//			++k1;
+	//		else
+	//			++k2;
+	//	}
+
+	//	int* mid_result1 = new int[k1];
+	//	int* mid_result2 = new int[k2];
+	//	int s1 = 0, s2 = 0;
+
+	//	for (int i = 0; i < TOTAL_SIZE; i++) {
+	//		if (original_array[i] < mid1) {
+	//			mid_result1[s1] = original_array[i];
+	//			s1++;
+	//		}
+	//		else {
+	//			mid_result2[s2] = original_array[i];
+	//			s2++;
+	//		}
+	//	}
+	//	
+	//	MPI_Send(mid_result2, k2, MPI_INT, 3,99, MPI_COMM_WORLD);
+	//	int mid2 = TOTAL_SIZE / 4;
+	//	int k3 = 0, k4 = 0;
+	//	for (int i = 0; i < k1; i++) {
+	//		if (mid_result1[i] < mid2)
+	//			++k3;
+	//		else
+	//			++k4;
+	//	}
+	//	/*printf("%d ", k3);
+	//	printf("%d ", k4);*/
+	//	int* mid_result3 = new int[k1];
+	//	int* mid_result4 = new int[k2];
+	//	int s3 = 0, s4 = 0;
+
+	//	for (int i = 0; i < k1; i++) {
+	//		if (mid_result1[i] < mid2) {
+	//			mid_result3[s3] = mid_result1[i];
+	//			s3++;
+	//		}
+	//		else {
+	//			mid_result4[s4] = mid_result1[i];
+	//			s4++;
+	//		}
+	//	}
+	//	MPI_Send(mid_result3, k3, MPI_INT, 1, 99, MPI_COMM_WORLD);
+	//	MPI_Send(mid_result4, k4, MPI_INT, 2, 99, MPI_COMM_WORLD);
+
+	//	MPI_Recv(mid_result3, k3, MPI_INT,1, 99, MPI_COMM_WORLD, &status);
+	//	MPI_Recv(mid_result4, k4, MPI_INT, 2, 99, MPI_COMM_WORLD, &status);
+	//	//合并接收到的1,2，进程资源
+	//	//int* array_result1 = new int[k3 + k4];
+	//	for (int i = 0; i < k3 + k4; i++) {
+	//		if (i < k3)
+	//			mid_result1[i] = mid_result3[i];
+	//		else
+	//			mid_result1[i] = mid_result4[i - k3];
+	//	}
+	//	MPI_Recv(mid_result2, k2, MPI_INT, 3, 99, MPI_COMM_WORLD, &status);
+	//	for (int i = 0; i < TOTAL_SIZE; i++) {
+	//		if (i < k1)
+	//			sorted_array[i] = mid_result1[i];
+	//		else
+	//			sorted_array[i] = mid_result2[i - k1];
+	//	}
+	//	delete[]mid_result1;
+	//	delete[]mid_result2;
+	//	delete[]mid_result3;
+	//	delete[]mid_result4;
+	//}
+	//if (world_rank == 1) {
+	//	MPI_Probe(MPI_ANY_SOURCE, 99, MPI_COMM_WORLD, &status);
+	//	int number_amount;
+	//	MPI_Get_count(&status, MPI_INT, &number_amount);
+	//	//printf("%d ", number_amount);
+	//	int* array = new int[number_amount];
+	//	MPI_Recv(array, number_amount, MPI_INT, 0, 99, MPI_COMM_WORLD, &status);
+	//	qsort(array, number_amount, sizeof(int), cmpfunc);
+	//	MPI_Send(array, number_amount, MPI_INT, 0, 99, MPI_COMM_WORLD);
+	//	delete[]array;
+	//}
+	//if (world_rank == 2) {
+	//	MPI_Probe(MPI_ANY_SOURCE, 99, MPI_COMM_WORLD, &status);
+	//	int number_amount;
+	//	MPI_Get_count(&status, MPI_INT, &number_amount);
+	//	//printf("%d ", number_amount);
+	//	int* array = new int[number_amount];
+	//	MPI_Recv(array, number_amount, MPI_INT, 0, 99, MPI_COMM_WORLD, &status);
+	//	qsort(array, number_amount, sizeof(int), cmpfunc);
+	//	MPI_Send(array, number_amount, MPI_INT, 0, 99, MPI_COMM_WORLD);
+	//	delete[]array;
+	//}
+	//if (world_rank == 3) {
+	//	int k2;
+	//	MPI_Probe(MPI_ANY_SOURCE, 99, MPI_COMM_WORLD, &status);
+	//	MPI_Get_count(&status, MPI_INT, &k2);
+	//	int* mid_array = new int[k2];
+	//	MPI_Recv(mid_array, k2, MPI_INT, 0, 99, MPI_COMM_WORLD, &status);
+	//	int mid3 = 3*TOTAL_SIZE / 4;
+	//	int k3 = 0, k4 = 0;
+	//	for (int i = 0; i < k2; i++) {
+	//		if (mid_array[i] < mid3)
+	//			++k3;
+	//		else
+	//			++k4;
+	//	}
+	//	int* mid_result3 = new int[k3];
+	//	int* mid_result4 = new int[k4];
+	//	int s3 = 0, s4 = 0;
+
+	//	for (int i = 0; i < k2; i++) {
+	//		if (mid_array[i] < mid3) {
+	//			mid_result3[s3] = mid_array[i];
+	//			s3++;
+	//		}
+	//		else {
+	//			mid_result4[s4] = mid_array[i];
+	//			s4++;
+	//		}
+	//	}
+	//	MPI_Send(mid_result3, k3, MPI_INT, 4, 99, MPI_COMM_WORLD);
+	//	MPI_Send(mid_result4, k4, MPI_INT, 5, 99, MPI_COMM_WORLD);
+
+	//	//从进程4接收资源
+	//	MPI_Recv(mid_result3, k3, MPI_INT, 4, 99, MPI_COMM_WORLD, &status);
+
+	//	//从进程5接收资源
+	//	MPI_Recv(mid_result4, k4, MPI_INT, 5, 99, MPI_COMM_WORLD, &status);
+
+	//	//合并接收到的资源
+	//	for (int i = 0; i < k3 + k4; i++) {
+	//		if (i < k3)
+	//			mid_array[i] = mid_result3[i];
+	//		else
+	//			mid_array[i] = mid_result4[i - k3];
+	//	}
+	//	MPI_Send(mid_array, k3+k4, MPI_INT, 0, 99, MPI_COMM_WORLD);
+	//	delete[]mid_array;
+	//	delete[]mid_result3;
+	//	delete[]mid_result4;
+	//}
+	//if (world_rank == 4) {
+	//	MPI_Probe(MPI_ANY_SOURCE, 99, MPI_COMM_WORLD, &status);
+	//	int number_amount;
+	//	MPI_Get_count(&status, MPI_INT, &number_amount);
+	//	//printf("%d ", number_amount);
+	//	int* array = new int[number_amount];
+	//	MPI_Recv(array, number_amount, MPI_INT, 3, 99, MPI_COMM_WORLD, &status);
+	//	qsort(array, number_amount, sizeof(int), cmpfunc);
+	//	MPI_Send(array, number_amount, MPI_INT, 3, 99, MPI_COMM_WORLD);
+	//	delete[] array;
+	//}
+	//if (world_rank == 5) {
+	//	MPI_Probe(MPI_ANY_SOURCE, 99, MPI_COMM_WORLD, &status);
+	//	int number_amount;
+	//	MPI_Get_count(&status, MPI_INT, &number_amount);
+	//	//printf("%d ", number_amount);
+	//	int* array = new int[number_amount];
+	//	MPI_Recv(array, number_amount, MPI_INT, 3, 99, MPI_COMM_WORLD, &status);
+	//	qsort(array, number_amount, sizeof(int), cmpfunc);
+	//	MPI_Send(array, number_amount, MPI_INT, 3, 99, MPI_COMM_WORLD);
+	//	delete[] array;
+	//}
+	//if (world_rank == 0)
+	//{
+	//	printf("This is the sorted array: ");
+	//	for (c = 0; c < TOTAL_SIZE; c++)
+	//	{
+	//		printf("%d ", sorted_array[c]);
+	//	}
+	//	printf("\n");
+	//	printf("\n");
+	//	FILE* fp = fopen("E:/MPI-云计算/MPI-云计算/result.txt", "w");  //以文本模式按只写方式打开文件
+	//	if (fp == NULL)                    //判断文件是否成功打开
+	//	{
+	//		printf("File open failed!\n");
+	//		exit(0);
+	//	}
+	//	for (int i = 0; i < TOTAL_SIZE; i++)    
+	//	{
+	//		fprintf(fp, "%d  ", sorted_array[i]);
+	//		//fputc('\n', fp);
+	//	}
+	//	fclose(fp);                //关闭文件
+	//}
+	//MPI_Finalize();
+	//return 0;
